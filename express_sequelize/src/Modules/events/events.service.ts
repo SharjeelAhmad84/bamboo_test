@@ -1,4 +1,6 @@
 import Event from './entities/event.entity';
+import Workshop from "./entities/workshop.entity";
+import {Op} from "sequelize";
 
 
 export class EventsService {
@@ -85,7 +87,12 @@ export class EventsService {
      */
 
   async getEventsWithWorkshops() {
-    throw new Error('TODO task 1');
+    return  await Event.findAll({
+        include : [{
+          model: Workshop,
+          order: ['id', 'ASC'],
+        }]
+    });
   }
 
   /* TODO: complete getFutureEventWithWorkshops so that it returns events with workshops, that have not yet started
